@@ -46,8 +46,10 @@ router.put('/:id', jsonParser, (req, res) => {
     const updatedItem = BlogPosts.update(req.body);
     res.status(201).json(updatedItem);
 })
-router.delete('/', jsonParser, (req, res) => {
-
+router.delete('/:id', (req, res) => {
+  BlogPosts.delete(req.params.id);
+  console.log(`Post deleted at ${req.params.id}!`)
+  res.status(204).end();
 })
 
 module.exports = router;
