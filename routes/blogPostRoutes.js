@@ -23,6 +23,7 @@ router.get('/', (req, res)=> {
             <h2>${val.title}</h2>
             <p>${val.content}</p>
             <p>By: ${val.author.firstName} ${val.author.lastName} on ${val.publishDate}
+            <p>post id: <i>${val._id}</i></p>
             </div>
             `;
         })
