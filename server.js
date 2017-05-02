@@ -4,8 +4,6 @@ const {PORT, DATABASE_URL} = require('./config');
 const app = express();
 const mongoose = require('mongoose');
 
-
-
 app.use('/blog-posts', blogPostRouter);
 
 let server;

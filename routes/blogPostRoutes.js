@@ -5,15 +5,30 @@ mongoose.Promise = global.Promise;
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const {Post} = require('../models');
+
+
 // const {
 //     BlogPosts
 // } = require('../models.js');
-
+let str = `<body style="background: linear-gradient(to bottom, #b2e1ff 0%,#66b6fc 100%);">`;
 router.get('/', (req, res)=> {
     console.log('inside get');
+
     Post
     .find()
-    .then((result) => res.json(result));
+    .then((result) => {
+        result.forEach(val=>{
+            str+=`
+            <div style="background:linear-gradient(to bottom, rgba(30,87,153,0) 0%,rgba(55,145,192,1) 100%);">
+            <h2>${val.title}</h2>
+            <p>${val.content}</p>
+            <p>By: ${val.author.firstName} ${val.author.lastName} on ${val.publishDate}
+            </div>
+            `;
+        })
+        str += `</body>`;
+        res.send(str)
+    })
 });
 
 router.get('/:id', (req, res)=> {
