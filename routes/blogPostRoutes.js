@@ -9,60 +9,42 @@ const {Post} = require('../models');
 //     BlogPosts
 // } = require('../models.js');
 
-
-
 router.get('/', (req, res)=> {
     console.log('inside get');
     Post
     .find()
-    .limit(1)
-    .exec()
     .then((result) => res.json(result));
-})
+});
 
+router.get('/:id', (req, res)=> {
+    console.log('inside get');
+    Post
+    .find({_id: req.params.id})
+    .then((result) => res.json(result));
+});
 
+router.post('/', jsonParser, (req,res)=>{
+    //console.log('entered post thing');
+    //console.log(req.body);
+    Post.create(req.body).then((val)=>{
+        //console.log("Yay!");
+        res.status(201).json(val);
+    });
+});
 
-// BlogPosts.create('Moby Dick', 'Trash', 'Dakota', '1703');
+router.put('/:id', jsonParser, (req,res)=>{
+    //console.log('entered post thing');
+    //console.log(req.body);
+    Post.update({_id: req.params.id},{$set:req.body}).then((val)=>{
+        //console.log("Yay!");
+        res.status(201).json(val);
+    });
+});
 
-
-// router.get('/', (req, res) => {
-//     res.json(BlogPosts.get());
-// });
-// router.post('/', jsonParser, (req, res) => {
-//     const requiredFields = ["title", "content", "author", "publishDate"];
-//     for (i = 0; i < requiredFields.length; i++) {
-//         const field = requiredFields[i];
-//         if (!(field in req.body)) {
-//             const message = `Hey dude, you're missing ${field}`;
-//             console.error(message);
-//             return res.status(400).send(message);
-//         }
-//     }
-//     const item = BlogPosts.create(req.body.title, req.body.content, req.body.author, req.body.publishDate);
-//     res.status(201).json(item);
-// })
-// router.put('/:id', jsonParser, (req, res) => {
-//   const requiredFields = ["id","title", "content", "author", "publishDate"];
-//   for (i = 0; i < requiredFields.length; i++) {
-//       const field = requiredFields[i];
-//       if (!(field in req.body)) {
-//           const message = `Hey dude, you're missing ${field}`;
-//           console.error(message);
-//           return res.status(400).send(message);
-//       }
-//   }
-//     if (req.body.id !== req.params.id) {
-//         const message = `Hey hombre, your ids don't match. Check yourself`;
-//         console.error(message);
-//         return res.status(400).send(message);
-//     }
-//     const updatedItem = BlogPosts.update(req.body);
-//     res.status(201).json(updatedItem);
-// })
-// router.delete('/:id', (req, res) => {
-//   BlogPosts.delete(req.params.id);
-//   console.log(`Post deleted at ${req.params.id}!`)
-//   res.status(204).end();
-// })
+router.delete('/:id',jsonParser,(req,res)=>{
+    Post.remove({_id: req.params.id}).then((val, err)=>{
+        res.json(val);
+    })
+});
 
 module.exports = router;

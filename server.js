@@ -9,5 +9,10 @@ const mongoose = require('mongoose');
 app.use('/blog-posts', blogPostRouter);
 
 let server;
-mongoose.connect(DATABASE_URL, () => server = app.listen(PORT, () => {console.log(`listening on ${PORT}`)}));
-
+mongoose.connect(
+  DATABASE_URL, () => server = app.listen(
+    PORT, () => {
+      console.log(`listening on ${PORT}`);
+    }
+  )
+);

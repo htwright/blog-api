@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const postSchema = mongoose.Schema({
   title: {type: String, required: true},
   content: {type: String, required: true},
-  author: {type: String, default: "Anonymous"},
+  author: {
+    firstName: String,
+    lastName: String
+
+  },
   publishDate: {type: String, default:Date.now}
 });
 
@@ -12,7 +16,8 @@ postSchema.methods.customDisplay = function() {
     id: this._id,
     title: this.title,
     content: this.content,
-    author: this.author,
+    author: {firstName: this.author.firstName,
+            lastName: this.author.lastName},
     publishDate: this.publishDate
   };
 };
