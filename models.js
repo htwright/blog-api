@@ -11,13 +11,16 @@ const postSchema = mongoose.Schema({
   publishDate: {type: String, default:Date.now}
 });
 
+postSchema.virtual('fullName').get(function() {
+  return `${this.author.firstName} ${this.author.lastName}`;
+});
+
 postSchema.methods.customDisplay = function() {
   return {
     id: this._id,
     title: this.title,
     content: this.content,
-    author: {firstName: this.author.firstName,
-            lastName: this.author.lastName},
+    author: this.fullName,
     publishDate: this.publishDate
   };
 };

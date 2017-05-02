@@ -12,7 +12,7 @@ const {Post} = require('../models');
 // const {
 //     BlogPosts
 // } = require('../models.js');
-let str = `<body style="background: linear-gradient(to bottom, #b2e1ff 0%,#66b6fc 100%);">`;
+let str = `<body style="background: linear-gradient(to bottom, #b2e1ff 0%,#66b6fc 100%);"><h1>Blog Posts of Awesomeness</h1>`;
 router.get('/', (req, res)=> {
     console.log('inside get');
 
