@@ -1,15 +1,18 @@
 <link rel="stylesheet" href="./css.css"/>
-
-<h1>Posts of Awesomeness</h1>
-<ul>
-    <% for(var i=0; i<val.length; i++) { %>
-        <li>
-            <div class="post">
-                <h3><%= val[i].title %></h3>
-                <p><%= val[i].content %></p>
-                <p>By: <%= val[i].fullName %> on <%= val.publishDate %></p>
-                <p>post id: <i><%= val[i]._id %></i></p>
-            </div>
-        </li>
-    <% } %>
-</ul>
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Raleway" rel="stylesheet">
+<div class='container'>
+    <h1>Posts of Awesomeness</h1>
+    <ul>
+        <% for(var i=0; i<val.length; i++) { %>
+            <li>
+                <div class="post">
+                    <h2><%= val[i].title %></h2>
+                    <hr>
+                    <p><%= val[i].content %></p>
+                    <p>By: <%= val[i].fullName %> on <%= val[i].date %></p>
+                    <p>post id: <i><%= val[i]._id %></i></p>
+                </div>
+            </li>
+        <% } %>
+    </ul>
+</div>

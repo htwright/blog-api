@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const postSchema = mongoose.Schema({
   title: {type: String, required: true},
@@ -14,6 +15,9 @@ const postSchema = mongoose.Schema({
 postSchema.virtual('fullName').get(function() {
   return `${this.author.firstName} ${this.author.lastName}`;
 });
+postSchema.virtual('date').get(()=>{
+  return moment(this.publishDate).format('MMMM Do YYYY')
+});
 
 postSchema.methods.customDisplay = function() {
   return {
@@ -21,7 +25,7 @@ postSchema.methods.customDisplay = function() {
     title: this.title,
     content: this.content,
     author: this.fullName,
-    publishDate: this.publishDate
+    date: this.date
   };
 };
 
