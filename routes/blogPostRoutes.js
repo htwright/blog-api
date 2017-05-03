@@ -12,26 +12,13 @@ const {Post} = require('../models');
 // const {
 //     BlogPosts
 // } = require('../models.js');
-let str = `<body style="background: linear-gradient(to bottom, #b2e1ff 0%,#66b6fc 100%);"><h1>Blog Posts of Awesomeness</h1>`;
 router.get('/', (req, res)=> {
     console.log('inside get');
 
     Post
     .find()
     .then((result) => {
-        result.forEach(val=>{
-            str+=`
-            <div style="background:linear-gradient(to bottom, rgba(30,87,153,0) 0%,rgba(55,145,192,1) 100%);">
-            <h2>${val.title}</h2>
-            <p>${val.content}</p>
-            <p>By: ${val.author.firstName} ${val.author.lastName} on ${val.publishDate}</p>
-            <p>post id: <i>${val._id}</i></p>
-            </div>
-            <hr>
-            `;
-        })
-        str += `</body>`;
-        res.send(str)
+        res.render('temp.ejs',{val: result});
     })
     .catch(err => res.status(500).send("Internal server error"));
 });
@@ -79,7 +66,7 @@ router.put('/:id', jsonParser, (req,res)=>{
     })
     .catch(err => res.status(500).send("Internal server error"));
 
-    
+
 });
 
 router.delete('/:id',jsonParser,(req,res)=>{
